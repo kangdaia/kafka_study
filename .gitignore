@@ -149,3 +149,4 @@ replay_pid*
 .kafkalogging
 minio
 .env
+visualization/prometheus/volume/*
