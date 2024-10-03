@@ -38,3 +38,114 @@ override.tf.json
 terraform.rc
 
 .DS_Store
+
+dist
+*classes
+*.class
+target/
+build/
+build_eclipse/
+out/
+.gradle/
+.vscode/
+lib_managed/
+src_managed/
+project/boot/
+project/plugins/project/
+patch-process/*
+.idea
+.svn
+.classpath
+/.metadata
+/.recommenders
+*~
+*#
+.#*
+rat.out
+TAGS
+*.iml
+.project
+.settings
+*.ipr
+*.iws
+.vagrant
+Vagrantfile.local
+/logs
+.DS_Store
+
+config/server-*
+config/zookeeper-*
+gradle/wrapper/*.jar
+gradlew.bat
+
+results
+tests/results
+.ducktape
+tests/.ducktape
+tests/venv
+.cache
+
+docs/generated/
+
+.release-settings.json
+
+kafkatest.egg-info/
+systest/
+*.swp
+jmh-benchmarks/generated
+jmh-benchmarks/src/main/generated
+**/.jqwik-database
+**/src/generated
+**/src/generated-test
+storage/kafka-tiered-storage/
+
+docker/test/report_*.html
+kafka.Kafka
+__pycache__
+
+### Java ###
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+replay_pid*
+
+### Linux ###
+*~
+
+# temporary files which can be created if a process still has a handle open of a deleted file
+.fuse_hidden*
+
+# KDE directory preferences
+.directory
+
+# Linux trash folder which might appear on any partition or disk
+.Trash-*
+
+# .nfs files are created when an open file is removed but is still being accessed
+.nfs*
+
+# End of https://www.toptal.com/developers/gitignore/api/linux,java
+
+.kafkalogging
+minio
+.env
