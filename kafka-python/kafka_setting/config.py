@@ -1,5 +1,5 @@
 import socket
 
-bootstrap_servers = 'localhost:19092,localhost:29092,localhost:39092'
+bootstrap_servers = 'localhost:19094,localhost:29094,localhost:39094'
 
 client_id = socket.gethostname()
