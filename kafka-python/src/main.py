@@ -1,6 +1,14 @@
 import logging
 from fastapi import FastAPI
 from datetime import datetime
+from src.scheduler import scheduler
+from contextlib import asynccontextmanager
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    scheduler.start()
+    yield
 
 
 app = FastAPI(
@@ -9,7 +17,7 @@ app = FastAPI(
     version="0.0.1",
     # openapi_tags=tags,
     swagger_ui_parameters={"syntaxHighlight.theme": "obsidian"},
-    # lifespan=lifespan
+    lifespan=lifespan
 )
 
 # configure log

@@ -11,6 +11,9 @@ fastapi = {extras = ["all"], version = "^0.115.0"}
 confluent-kafka = "^2.5.3"
 pydantic = "^2.9.2"
 pydantic-settings = "^2.5.2"
+apscheduler = "^3.10.4"
+httpx = "^0.27.2"
+aiohttp = "^3.10.9"
 
 
 [build-system]
