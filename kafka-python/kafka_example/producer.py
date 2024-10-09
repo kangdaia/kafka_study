@@ -27,4 +27,4 @@ def send_messages(topic, num_messages):
     producer.flush()  # 모든 메시지가 전송될 때까지 대기
 
 # 토픽명과 메시지 수를 지정하여 메시지 전송
-send_messages('my-topic', 10)
+# send_messages('my-topic', 10)

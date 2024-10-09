@@ -28,4 +28,4 @@ def consume_messages():
     finally:
         consumer.close()  # 종료 시 컨슈머 닫기
 
-consume_messages()
+# consume_messages()

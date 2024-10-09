@@ -3,6 +3,8 @@ from fastapi import FastAPI
 from datetime import datetime
 from src.scheduler import scheduler
 from contextlib import asynccontextmanager
+from src.database import engine
+from src.model import Base
 
 
 @asynccontextmanager
@@ -19,6 +21,9 @@ app = FastAPI(
     swagger_ui_parameters={"syntaxHighlight.theme": "obsidian"},
     lifespan=lifespan
 )
+
+# 데이터베이스 테이블 생성 (애플리케이션 시작 시 한 번 호출)
+Base.metadata.create_all(bind=engine)
 
 # configure log
 logging.basicConfig(level=logging.DEBUG, filename=f'log/{datetime.now().strftime("%Y-%m-%d")}.log', filemode='a', format='%(asctime)s - %(levelname)s - %(message)s')

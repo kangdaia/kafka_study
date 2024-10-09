@@ -1,5 +1,6 @@
 from apscheduler.schedulers.background import BackgroundScheduler
 from src.config import settings
+from src.producer import produce_message
 import aiohttp
 import json
 import asyncio
@@ -23,15 +24,14 @@ async def fetch_stock_data(session, ticker):
             latest_time = next(iter(time_series))  # 가장 최근의 데이터 시간
             latest_data = time_series[latest_time]
             
-            topic = f"stock_data_{ticker}"
+            topic = "stock_data"
             message = {
                 "symbol": params['symbol'],
                 "open_price": float(latest_data['1. open']),
                 "volume": int(latest_data['5. volume']),
                 "timestamp": latest_time
             }
-            serialized_message = json.dumps(message).encode('utf-8')
-            #produce_message(topic, message)
+            produce_message(topic, message)
             print(f"Message sent to Kafka: {message}")
         else:
             print(f"Failed to fetch data from API. Status code: {response.status}")
