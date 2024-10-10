@@ -5,12 +5,16 @@ from src.scheduler import scheduler
 from contextlib import asynccontextmanager
 from src.database import engine
 from src.model import Base
+from src.consumer import consume_messages
+import asyncio
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     scheduler.start()
+    consume_messages()
     yield
+    print("App Closed.")
 
 
 app = FastAPI(

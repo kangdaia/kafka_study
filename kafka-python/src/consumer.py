@@ -1,6 +1,7 @@
 from confluent_kafka import Consumer, KafkaError
 from sqlalchemy.orm import Session
-from database import SessionLocal, StockData
+from src.database import SessionLocal
+from src.model import StockData
 from src.config import settings
 
 
@@ -74,3 +75,7 @@ def consume_messages():
 
 
 ###TODO: Consumer strategy update
+
+
+if __name__ == "__main__":
+    consume_messages()
