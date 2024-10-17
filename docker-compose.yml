@@ -75,10 +75,13 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
       KAFKA_LOG_DIRS: kafkalogging/kafka
+      KAFKA_OPTS: -javaagent:/usr/share/jmx_exporter/jmx_prometheus_javaagent-1.0.1.jar=9997:/usr/share/jmx_exporter/kafka-jmx-metric.yml
     ports:
       - 19092:19092
       - 19094:19094
+      - 9997:9999
     volumes:
+      - ./jmx_exporter:/usr/share/jmx_exporter/
       - .kafkalogging/kafka/logs/1:/kafka
     networks:
       - kafka-network
@@ -100,10 +103,13 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
       KAFKA_LOG_DIRS: kafkalogging/kafka
+      KAFKA_OPTS: -javaagent:/usr/share/jmx_exporter/jmx_prometheus_javaagent-1.0.1.jar=9998:/usr/share/jmx_exporter/kafka-jmx-metric.yml
     ports:
       - 29092:29092
-      - "29094:29094"
+      - 29094:29094
+      - 9998:9999
     volumes:
+      - ./jmx_exporter:/usr/share/jmx_exporter/
       - .kafkalogging/kafka/logs/2:/kafka
     networks:
       - kafka-network
@@ -125,10 +131,13 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
       KAFKA_LOG_DIRS: kafkalogging/kafka
+      KAFKA_OPTS: -javaagent:/usr/share/jmx_exporter/jmx_prometheus_javaagent-1.0.1.jar=9999:/usr/share/jmx_exporter/kafka-jmx-metric.yml
     ports:
       - 39092:39092
-      - "39094:39094"
+      - 39094:39094
+      - 9999:9999
     volumes:
+      - ./jmx_exporter:/usr/share/jmx_exporter/
       - .kafkalogging/kafka/logs/3:/kafka
     networks:
       - kafka-network

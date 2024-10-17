@@ -67,8 +67,7 @@ poetry shell
 - `.env` 파일 생성
   
     ```(shell)
-    OPEN_OASIS_KEY=
-    ALPHA_VANTAGE_KEY=
+    WEATHER_API_KEY=
     ```
 
 - /kafka-python 폴더내 (src와 동일 레벨) /log 폴더 생성
