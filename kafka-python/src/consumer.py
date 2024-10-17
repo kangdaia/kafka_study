@@ -1,8 +1,9 @@
 from confluent_kafka import Consumer, KafkaError
 from sqlalchemy.orm import Session
 from src.database import SessionLocal
-from src.model import StockData
+from src.model import WeatherData
 from src.config import settings
+import json
 
 
 # Kafka Consumer 설정
@@ -22,20 +23,17 @@ consumer_config = {
     # 'partition.assignment.strategy': "roundrobin"
     # 'client.id': "uniq-id-fastapi"
 }
-
+cities = ["Seoul", "Paris", "New_York", "Seattle", "Sydney"]
 consumer = Consumer(consumer_config)
-consumer.subscribe(['stock_data'])  # Kafka의 'stock_data' 토픽 구독
+consumer.subscribe([f'weather_data_{city}' for city in cities])
 
 # 메시지를 DB에 저장하는 함수
 def save_to_db(db: Session, message: dict):
-    stock_data = StockData(
-        symbol=message['symbol'],
-        open_price=message['open_price'],
-        volume=message['volume'],
-        timestamp=message['timestamp']
-    )
+    message['condition'] = json.dumps(message["condition"])
+    stock_data = WeatherData(**message)
     db.add(stock_data)
     db.commit()
+    
 
 # Kafka 메시지 소비 및 데이터베이스 저장
 def consume_messages():

@@ -1,24 +1,38 @@
 from pydantic import BaseModel
-from datetime import datetime
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, Float, Boolean, Text
 from src.database import Base
 
 
-class StockData(Base):
-    __tablename__ = "stock_data"
+class WeatherData(Base):
+    __tablename__ = 'weather_data'
 
-    id = Column(Integer, primary_key=True, index=True)
-    symbol = Column(String, index=True)
-    open_price = Column(String)
-    volume = Column(Integer)
-    timestamp = Column(String)
-
-
-class StockMessage(BaseModel):
-    symbol: str  # 주식 티커 (문자열)
-    open_price: float  # 주식의 오픈 가격 (실수형)
-    volume: int  # 거래량 (정수형)
-    timestamp: datetime  # 타임스탬프 (datetime 객체)
-
-    class Config:
-        orm_mode = True
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    last_updated_epoch = Column(Integer, nullable=False)
+    last_updated = Column(String, nullable=False)
+    temp_c = Column(Float, nullable=False)
+    temp_f = Column(Float, nullable=False)
+    is_day = Column(Boolean, nullable=False)
+    condition = Column(Text, nullable=False)
+    wind_mph = Column(Float, nullable=False)
+    wind_kph = Column(Float, nullable=False)
+    wind_degree = Column(Integer, nullable=False)
+    wind_dir = Column(String, nullable=False)
+    pressure_mb = Column(Float, nullable=False)
+    pressure_in = Column(Float, nullable=False)
+    precip_mm = Column(Float, nullable=False)
+    precip_in = Column(Float, nullable=False)
+    humidity = Column(Integer, nullable=False)
+    cloud = Column(Integer, nullable=False)
+    feelslike_c = Column(Float, nullable=False)
+    feelslike_f = Column(Float, nullable=False)
+    windchill_c = Column(Float, nullable=False)
+    windchill_f = Column(Float, nullable=False)
+    heatindex_c = Column(Float, nullable=False)
+    heatindex_f = Column(Float, nullable=False)
+    dewpoint_c = Column(Float, nullable=False)
+    dewpoint_f = Column(Float, nullable=False)
+    vis_km = Column(Float, nullable=False)
+    vis_miles = Column(Float, nullable=False)
+    uv = Column(Float, nullable=False)
+    gust_mph = Column(Float, nullable=False)
+    gust_kph = Column(Float, nullable=False)
