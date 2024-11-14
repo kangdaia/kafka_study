@@ -154,19 +154,22 @@ services:
       - kafka-2
       - kafka-3
       - minio
+      - mc
     environment:
       CONNECT_BOOTSTRAP_SERVERS: kafka1:19092,kafka2:29092,kafka3:39092
-      # AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
-      # AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
-      # S3_BUCKET_NAME: ${S3_BUCKET_NAME}
-      # S3_ENDPOINT: ${S3_ENDPOINT}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      S3_BUCKET_NAME: ${S3_BUCKET_NAME}
+      S3_REGION: "us-east-1"
+      S3_ENDPOINT: ${S3_ENDPOINT}
       S3_PATH_STYLE_ACCESS: 'true'
-    command: 
-      - bash
-      - -c
-      - |
-        confluent-hub install --no-prompt confluentinc/kafka-connect-s3:latest
+    command: >
+      bash -c "
+        confluent-hub install --no-prompt confluentinc/kafka-connect-s3:latest &&
         /etc/confluent/docker/run
+      "
+    volumes:
+      - connect-offsets:/tmp/kafka-connect
     ports:
       - "8083:8083"
     networks:
@@ -190,7 +193,6 @@ services:
       - 8081:8080
     networks:
       - kafka-network
-
 
   grafana:
     image: grafana/grafana-oss:11.2.2
@@ -256,7 +258,41 @@ services:
       - ./minio/data:/data
     networks:
       - kafka-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  mc:
+    image: minio/mc
+    container_name: minio_mc
+    depends_on:
+      - minio
+    entrypoint: >
+      /bin/sh -c "
+      until (/usr/bin/mc alias set myminio http://minio:9000 ${MINIO_ROOT_USER} ${MINIO_ROOT_PASSWORD})
+      do sleep 5; done;
+      /usr/bin/mc mb myminio/${S3_BUCKET_NAME};
+      "
+    networks:
+      - kafka-network
+
+  kafka-connect-ui:
+    image: landoop/kafka-connect-ui
+    container_name: kafka-connect-ui
+    environment:
+      CONNECT_URL: http://kafka-connect:8083
+    ports:
+      - "8082:8000"
+    depends_on:
+      - kafka-connect
+    networks:
+      - kafka-network
 
 networks:
   kafka-network:
     external: true
+
+volumes:
+  connect-offsets:
