@@ -1,0 +1,28 @@
+{
+    "name": "minio-sink-connector",
+    "config": {
+        "connector.class": "io.confluent.connect.s3.S3SinkConnector",
+        "s3.region": "us-east-1",
+        "flush.size": "3",
+        "schema.compatibility": "NONE",
+        "tasks.max": "1",
+        "file.delim": "-",
+        "topics": "weather_data_New_York,weather_data_Paris,weather_data_Seattle,weather_data_Seoul,weather_data_Sydney",
+        "s3.part.size": "5242880",
+        "aws.access.key.id": "...",
+        "aws.secret.access.key": "...",
+        "store.url": "http://minio:9000",
+        "s3.bucket.name": "kafka",
+        "storage.class": "io.confluent.connect.s3.storage.S3Storage",
+        "format.class": "io.confluent.connect.s3.format.json.JsonFormat",
+        "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+        "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+        "key.converter.schemas.enable": false,
+        "value.converter.schemas.enable": false,
+        "s3.compression.type": "gzip",
+        "directory.delim": "/",
+        "locale": "ko-KR",
+        "timezone": "Asia/Seoul",
+        "bootstrap.servers": "kafka1:19092,kafka2:29092,kafka3:39092"
+    }
+}

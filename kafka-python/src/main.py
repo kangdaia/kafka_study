@@ -41,3 +41,4 @@ origins = [
 async def root():
     logger.debug("Root endpoint accessed")
     return {"CONNECT"}
+
