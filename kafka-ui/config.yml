@@ -1,0 +1,16 @@
+auth:
+  type: LOGIN_FORM
+
+spring:
+  security:
+    user:
+      name: admin
+      password: admin
+
+kafka:
+  clusters:
+    - bootstrapServers: kafka1:19092,kafka2:29092,kafka3:39092
+      name: kafka
+      metrics:
+        port: 9999
+        type: PROMETHEUS
