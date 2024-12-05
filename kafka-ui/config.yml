@@ -14,3 +14,10 @@ kafka:
       metrics:
         port: 9999
         type: PROMETHEUS
+      
+      schemaRegistry: http://schema-registry:8085
+
+      kafkaConnect:
+        - name: kafka-connect
+          address: http://kafka-connect:8083
+
